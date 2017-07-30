@@ -1,6 +1,6 @@
 Package: predict.utils
 Type: Package
-Title: R iterative prediction utility functions.
+Title: R iterative prediction utility functions
 Version: 0.1
 Date: 2017-07-29
 Author: Dave Mitchell
