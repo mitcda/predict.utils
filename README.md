@@ -1,4 +1,4 @@
-# predict-utils
+# predict.utils
 
 Set of R functions to simplify forecasting from (linear) models that
 contain lagged dependent variables.
@@ -7,6 +7,6 @@ contain lagged dependent variables.
 
 ```r
 install.packages(c("formula.tools"))
-devtools::install_github("mitcda/predict-utils")
+devtools::install_github("mitcda/predict.utils")
 ```
 
