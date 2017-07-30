@@ -1,0 +1,14 @@
+Package: predict.utils
+Type: Package
+Title: R iterative prediction utility functions.
+Version: 0.1
+Date: 2017-07-29
+Author: Dave Mitchell
+Maintainer: Dave Mitchell<david.p.mitchell@homemail.com.au>
+Description: R functions to simplify forecasting from (linear) models that
+  contain lagged dependent variables.
+License: GPL
+Depends: R (>= 3.1.0)
+Imports: formula.tools
+Suggests: testthat
+RoxygenNote: 6.0.1

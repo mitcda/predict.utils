@@ -12,7 +12,7 @@
 #' @return An object of the same class as object \code{x}. 
 #' @author Dave Mitchell <david.p.mitchell@@homemail.com.au>
 #' @note Arguments \code{base.period} and \code{direction} are currently unimplemented.
-#' @example
+#' @examples
 #'   A <- ts(c(100, 95, 125, 150,  NA,  NA,  NA,  NA), start=1991);
 #'   B <- ts(c(NA,  NA,  NA, 100, 120, 150, 200, 225), start=1991);
 #'   splice_series(A, B);
@@ -34,7 +34,7 @@ splice_series <- function(x, y, base.period=NULL, method="vector", direction="fo
 #' @name i_predict
 #' @title Iteratively predict model results
 #' @description Function to iteratively predict/forecast from specified \code{model} object, primarily for predicting models that include lagged dependent variables
-#' @import formula.tools
+#' @importFrom formula.tools lhs
 #' @export
 #' @param object a model object for prediction
 #' @param ... additional arguments applying to the predictions.
@@ -42,8 +42,8 @@ splice_series <- function(x, y, base.period=NULL, method="vector", direction="fo
 #' @details This function provides a general approach to the problem of producing forecasts, or out of sample predictions, from (linear) models containing lagged dependent variables.  Other approaches to producing rolling or iterative forecasts include: \href{https://www.r-bloggers.com/variations-on-rolling-forecasts/}{Variations on rolling forecasts} and \href{https://stackoverflow.com/questions/4856555/iteratively-forecasting-dyn-models}{Iteratively forecasting dyn models}.
 #' @author Dave Mitchell <david.p.mitchell@@homemail.com.au>
 #' @seealso \code{predict}, \code{predict.lm}, \code{predict.glm}.
-#' @note  Function not yet tested against all possible \code{predict} methods.
-#' @example
+#' @note Function not yet tested against all possible \code{predict} methods.
+#' @examples
 #'  data(AvData);
 #'  lm.AirFrgt <- lm(log(Freight.TKM) ~ log(A2304402X) + log(Aircraft.Departures)
 #'                   + dQ2 + dQ3 + dQ4 + dPilot.Sep89 + dPilot.Dec89 + dPilot.Mar90
@@ -92,7 +92,7 @@ i_predict <- function(object, newdata, ...)
 #' @author Dave Mitchell <david.p.mitchell@@homemail.com.au>
 #' @note Function explicitly defined for use in \code{i_predict}. Function tested against R built-in functions (e.g. log(), sin(), etc.), but not yet thoroughly tested for mathematical expressions (e.g. x'^2' or '2*'x).
 #' @seealso{i_predict}
-#' @example
+#' @examples
 #'  fn <- "log()"
 #'  inverse_fn(fn)
 inverse_fn <- function(x)
