@@ -1,4 +1,3 @@
-
 ### Splice multiple series
 #' @name splice_series
 #' @title Splice two of more vectors into a single series
@@ -68,13 +67,15 @@ i_predict <- function(object, newdata, ...)
     lhsVar <- rawVars[sapply(rawVars, function(x) grepl(x, LHS))];
     lhsFn <- sub(lhsVar, "", LHS);
     invFn <- inverse_fn(lhsFn);
-    ## Iteratively predict over forecast horizon
+    ## Iteratively predict over the forecast horizon
     while(is.na(tail(newdata[,lhsVar],1))) {
+      ## TO DO: Insert break if any rhsVar at .idx is NA
+      ##  with message: 'Forecast dependent variable (..) is NA, provide non-NA forecast inputs'
       .fit <- predict(object, newdata)
       ## TO DO: Suggest handling function substitution entirely within 'inverse_fn'
       .fit <- eval(parse(text=sub("_", ".fit", invFn)));
       .idx <- which(is.na(newdata[,lhsVar]) & !is.na(.fit));
-      ## Update newdata
+      ## Update newdata 
       newdata[.idx, lhsVar] <- .fit[.idx];
     }
     predicted <- predict(object, newdata, ...);

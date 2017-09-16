@@ -14,7 +14,7 @@
 #' 
 #' @source Australian aviation statistics \url{https://bitre.gov.au/publications/ongoing/domestic_airline_activity-time_series.aspx} and Australian national accounts \url{http://www.abs.gov.au/ausstats/abs@.nsf/mf/5206.0}.
 #' @keywords datasets
-#' @usage AvData
+"AvData"
 
 
 
@@ -35,4 +35,4 @@
 #' 
 #' @source Australian aviation statistics \url{https://bitre.gov.au/publications/ongoing/domestic_airline_activity-time_series.aspx} and Australian national accounts \url{http://www.abs.gov.au/ausstats/abs@.nsf/mf/5206.0}.
 #' @keywords datasets
-#' @usage FcstData
+"FcstData"
