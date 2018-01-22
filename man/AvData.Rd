@@ -13,13 +13,14 @@ AvData
 }
 \description{
 A dataset containing Australian aviation freight model dependent and independent variables.  Key variables include:
-  \item{date}{quarterly}
-  \item{Freight.TKM}{Quarterly Australian air freight tonne kilometres}
-  \item{Aircraft.Departures}{Australian air freight tonne kilometres}
-  \item{A2304113C}{Quarterly Australian Gross National Expenditure (GNE), chain volume measures: seasonally adjusted}
-  \item{A2304402X}{Quarterly Australian Gross Domestic Product (GDP), chain volume measures: seasonally adjusted}
-  \item{dQx}{Quarterly dummy variables}
-  \item{dPilot.QtrYY}{Australian pilot dispute dummy variables}
-  ...
+ \describe{
+   \item{date}{quarterly}
+   \item{Freight.TKM}{Quarterly Australian air freight tonne kilometres}
+   \item{Aircraft.Departures}{Australian air freight tonne kilometres}
+   \item{A2304113C}{Quarterly Australian Gross National Expenditure (GNE), chain volume measures: seasonally adjusted}
+   \item{A2304402X}{Quarterly Australian Gross Domestic Product (GDP), chain volume measures: seasonally adjusted}
+   \item{dQx}{Quarterly dummy variables}
+   \item{dPilot.QtrYY}{Australian pilot dispute dummy variables}
+ }
 }
 \keyword{datasets}
