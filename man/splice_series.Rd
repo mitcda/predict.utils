@@ -2,36 +2,56 @@
 % Please edit documentation in R/predict.utils.R
 \name{splice_series}
 \alias{splice_series}
-\title{Splice two of more vectors into a single series}
+\title{Splice together two time series objects.}
 \usage{
-splice_series(x, y, base.period = NULL, method = "vector",
-  direction = "forward")
+splice_series(x, ...)
 }
 \arguments{
-\item{x}{Original (base) vector}
+\item{x}{Original (base) time series.}
 
-\item{y}{New or future vector series to be applied to the base vector (\code{x})}
+\item{y}{Splicing time series, to be applied to the base time series.}
 
-\item{base.period}{Base period (vector index) on which to splice the two series.  If NULL, then function replaces all NA values in \code{x} using values in \code{y}. (Currently unimplemented.)}
+\item{base.period}{Integer object comprising the base period observation. See \link{Details} for more detail explanation about the appropriate format of \code{base.period}.}
 
-\item{method}{One of either 'vector' (default) or 'iterative'.}
-
-\item{direction}{One of either 'forward' (default) or 'backward'. (Currently not implemented.)}
+\item{direction}{One of either 'after' (default) or 'before'.}
 }
 \value{
 An object of the same class as object \code{x}.
 }
 \description{
-Function to iteratively splice two vectors, covering different bases, into series  extend
+Function to splice two vectors, covering different, but overlapping periods, into a single consistent time series.
 }
-\note{
-Arguments \code{base.period} and \code{direction} are currently unimplemented.
+\details{
+The function splices together two time series objects, by applying indexed movements in series \code{y} to base series \code{x}.  Both objects must be of the same frequency (i.e. annual, quarterly, monthly, etc.).  The function also allows for splicing 'forward' (Default)---i.e. extending an existing series beyond the base period---and 'backward'---i.e. splicing values onto the start of a series using the  
+
+For plain (non-time series) vectors, \code{base.period} must be a two-element integer vector identifying the base period observation index for \code{x} and \code{y}, respectively.  For time series (\code{ts}) objects, \code{base.period} , must be a two element vector specifying the year and year-part (e.g. \code{c(1994, 2)} for the second quarter 1994.  For extensible time series objects (\code{xts}), \code{base.period} must be a time-based class---one of ‘Date’, ‘POSIXct’, ‘timeDate’, ‘yearmon’ or ‘yearqtr’, and match the time-based index class of series \code{x}, and be within the range of \code{x} and \code{y}.
 }
 \examples{
-  A <- ts(c(100, 95, 125, 150,  NA,  NA,  NA,  NA), start=1991);
-  B <- ts(c(NA,  NA,  NA, 100, 120, 150, 200, 225), start=1991);
-  splice_series(A, B);
+
+  ## Non-time series (default) method example
+  A <- c(100, 95, 125, 150,  NA,  NA,  NA,  NA);
+  B <- c(NA,  NA,  NA, 100, 120, 150, 200, 225);
+  splice_series(A, B, base.period=c(4,4));
+  splice_series(B, A, base.period=c(4,4), direction="before");
+
+  ## Time series (ts) object method example
+  A <- ts(c(100, 95, 125, 150,  NA,  NA,  NA,  NA), start=1991, frequency=1);
+  B <- ts(c(NA,  NA,  NA, 100, 120, 150, 200, 225), start=1991, frequency=1);
+  splice_series(A, B, base.period=c(1994,1));
+  splice_series(B, A, base.period=c(1994,1), direction="before");
+
+  ## Extensible time series (xts) object method example
+  A <- xts(x=c(100, 95, 125, 150,  NA,  NA,  NA,  NA),
+           order.by=seq(as.Date("1991-03-01"), by="quarter", length.out=8));
+  B <- xts(x=c(NA,  NA,  NA, 100, 120, 150, 200, 225),
+           order.by=seq(as.Date("1991-03-01"), by="quarter", length.out=8));
+  splice_series(A, B, base.period=as.Date("1994-03-01"));
+  splice_series(B, A, base.period=as.Date("1994-03-01"), direction="before");
+
+}
+\seealso{
+Other R implementations to splice time series include: \code{\link[tframe]{splice}}
 }
 \author{
-Dave Mitchell <david.p.mitchell@homemail.com.au>
+David Mitchell <david.p.mitchell@homemail.com.au>
 }

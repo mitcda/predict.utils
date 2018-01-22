@@ -26,5 +26,5 @@ Function explicitly defined for use in \code{i_predict}. Function tested against
 {i_predict}
 }
 \author{
-Dave Mitchell <david.p.mitchell@homemail.com.au>
+David Mitchell <david.p.mitchell@homemail.com.au>
 }

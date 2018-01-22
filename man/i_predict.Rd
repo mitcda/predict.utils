@@ -41,5 +41,5 @@ Function not yet tested against all possible \code{predict} methods.
 \code{predict}, \code{predict.lm}, \code{predict.glm}.
 }
 \author{
-Dave Mitchell <david.p.mitchell@homemail.com.au>
+David Mitchell <david.p.mitchell@homemail.com.au>
 }
