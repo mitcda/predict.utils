@@ -7,7 +7,6 @@
 #' @param base.period Integer object comprising the base period observation. See \link{Details} for more detail explanation about the appropriate format of \code{base.period}. 
 #' @param direction One of either 'after' (default) or 'before'.
 #' @return An object of the same class as object \code{x}. 
-#' @export
 #' @author David Mitchell <david.p.mitchell@@homemail.com.au>
 #' @details The function splices together two time series objects, by applying indexed movements in series \code{y} to base series \code{x}.  Both objects must be of the same frequency (i.e. annual, quarterly, monthly, etc.).  The function also allows for splicing 'forward' (Default)---i.e. extending an existing series beyond the base period---and 'backward'---i.e. splicing values onto the start of a series using the  
 #'
@@ -36,11 +35,13 @@
 #'   splice_series(A, B, base.period=as.Date("1994-03-01"));
 #'   splice_series(B, A, base.period=as.Date("1994-03-01"), direction="before");
 #' 
+#' @export
 splice_series <- function(x, ...) {
   UseMethod("splice_series")
 }
 
 
+#' @export
 splice_series.default <- function(x, y, base.period, direction="after")
 {
   ## if ( !class(x) %in% c("numeric","integer") )
@@ -67,6 +68,7 @@ splice_series.default <- function(x, y, base.period, direction="after")
 }
 
 
+#' @export
 splice_series.ts <- function(x, y, base.period, direction="after")
 {
   if ( class(y) != "ts" )
@@ -96,6 +98,7 @@ splice_series.ts <- function(x, y, base.period, direction="after")
 }
 
 
+#' @export
 splice_series.xts <- function(x, y, base.period, direction="after")
 {
   if ( class(y)[1] != "xts" )

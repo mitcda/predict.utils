@@ -2,8 +2,6 @@
 #' @name i_predict
 #' @title Iteratively predicted values based on a model object
 #' @description Function to iteratively predict/forecast from specified \code{model} object, primarily for predicting models that include lagged dependent variables
-#' @importFrom formula.tools lhs
-#' @export
 #' @param object a model object for predictions.
 #' @param ... additional arguments affecting the predictions.
 #' @return The form of the value returned by \code{i_predict} depends on the class of its argument. See details of the particular methods for details of what is produced by that method.
@@ -26,6 +24,7 @@
 #'  AvFcsts <- exp(i_predict(lm.AirFrgt, newdata=Fcst.AvData, interval="prediction"));
 #'  tail(AvFcsts);
 #'  
+#' @export
 i_predict <- function(object, newdata, ...)
 {
   if (missing(newdata) || is.null(newdata))
@@ -37,13 +36,13 @@ i_predict <- function(object, newdata, ...)
     LHS <- formula.tools::lhs(formula(object)) %>% deparse
     lhsVar <- rawVars[sapply(rawVars, function(x) grepl(x, LHS))];
     lhsFn <- sub(lhsVar, "", LHS);
-    invFn <- inverse_fn(lhsFn);
+    invFn <- .inverse_fn(lhsFn);
     ## Iteratively predict over the forecast horizon
     while(is.na(tail(newdata[,lhsVar],1))) {
       ## TO DO: Insert break if any rhsVar at .idx is NA
       ##  with message: 'Forecast dependent variable (..) is NA, provide non-NA forecast inputs'
       .fit <- predict(object, newdata)
-      ## TO DO: Suggest handling function substitution entirely within 'inverse_fn'
+      ## TO DO: Suggest handling function substitution entirely within '.inverse_fn'
       .fit <- eval(parse(text=sub("_", ".fit", invFn)));
       .idx <- which(is.na(newdata[,lhsVar]) & !is.na(.fit));
       ## Update newdata 
@@ -61,8 +60,8 @@ i_predict <- function(object, newdata, ...)
 }
 
 
-### inverse_fn
-#' @name inverse_fn
+### .inverse_fn
+#' @name .inverse_fn
 #' @title Return specified function inverse
 #' @description Function to return the inverse of the supplied function
 #' @param x valid built-in function character string or mathematical operation.
@@ -72,8 +71,8 @@ i_predict <- function(object, newdata, ...)
 #' @seealso{i_predict}
 #' @examples
 #'  fn <- "log()"
-#'  inverse_fn(fn)
-inverse_fn <- function(x)
+#'  .inverse_fn(fn)
+.inverse_fn <- function(x)
 {
   x <- switch(x,
               "log()"   = "exp(_)",
